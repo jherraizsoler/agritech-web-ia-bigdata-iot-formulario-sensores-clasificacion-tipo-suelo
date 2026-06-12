@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentacion sensor multinivel - Figuras Tecnicas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-logos">
+        <img src="logos/logo_Proyecto.png" alt="Proyecto" class="logo-Proyecto" />
+        <span class="divider"></span>
+        <img src="logos/logo_proyecto.svg" alt="equipo investigador" />
+      </div>
+    </div>
+    <nav class="page-nav">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="datos.html">Datos y Pipeline</a>
+      <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
+      <a class="nav-link is-active" href="figuras.html">Figuras Tecnicas</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
+      <a class="nav-link" href="testeo.html">Testeo</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="content-block">
+      <p class="kicker">Evidencia visual completa</p>
+      <h1>13 graficos diagnosticos (interactivos + mapas clave)</h1>
+      <p class="lead">Cada panel es interactivo real (Plotly): zoom, pan, hover y guardado. Los datos salen de los CSV del proyecto, sin inventar valores.</p>
+      <p class="counter-note">Ruta sugerida sin infoxicación: 1-4 calidad de datos, 5-8 patrón WRB, 7A-7B mapas clave WRB, 9-10 textura USDA, 11 cobertura final.</p>
+    </section>
+
+    <section class="content-block">
+      <h2>Metodología técnica aplicada</h2>
+      <div class="method-tags">
+        <span class="method-tag">RandomForest</span>
+        <span class="method-tag">J48</span>
+        <span class="method-tag">Regresión Logística</span>
+        <span class="method-tag">Clasificación no supervisada</span>
+        <span class="method-tag">Normalización de datos</span>
+      </div>
+      <p class="counter-note">Este bloque resume tecnologías de modelado a defender en la presentación. Los resultados cuantitativos siempre deben venir de los CSV y reportes del proyecto.</p>
+    </section>
+
+    <style>
+      .fig-comment { margin: 8px 0 0; padding: 10px 14px; background: #f3f8f1; border-left: 3px solid #2f7a45; border-radius: 0 8px 8px 0; font-size: .93rem; line-height: 1.5; color: #3a4f3a; }
+      .fig-static { width: 100%; height: auto; border: 1px solid rgba(15, 23, 42, 0.1); border-radius: 8px; display: block; }
+      .heatmap-static { height: 470px; }
+      .scale-note { margin: 8px 2px 0; font-size: .9rem; font-weight: 600; color: #334155; }
+      .abbr-note { margin: 8px 2px 0; padding: 10px 12px; background: #f8fafc; border: 1px solid rgba(15, 23, 42, 0.14); border-radius: 8px; font-size: .9rem; line-height: 1.5; color: #334155; }
+      .abbr-note p { margin: 0 0 4px; }
+      .abbr-note p:last-child { margin-bottom: 0; }
+    </style>
+
+    <section class="figure-grid">
+      <article class="chart-card">
+        <h3>1. WRB class distribution</h3>
+        <div id="fig1" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> casi todas las muestras son del mismo tipo de suelo (Cambisols). Cuando el 92,6&nbsp;% pertenece a una sola clase, decir &laquo;el modelo acierta el 99&nbsp;%&raquo; puede ser enga&ntilde;oso: bastar&iacute;a con responder siempre &laquo;Cambisols&raquo;. <strong>Por eso se usa F1-macro</strong>, que penaliza igualmente los fallos en clases raras.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>2. WRB class distribution (log)</h3>
+        <div id="fig2" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> la escala logar&iacute;tmica &laquo;estira&raquo; las barras peque&ntilde;as para que se puedan ver. Sin esta vista, Arenosols (26 muestras) o Calcisols (46) ser&iacute;an invisibles en el gr&aacute;fico anterior. <strong>T&eacute;cnicamente:</strong> permite detectar qu&eacute; clases necesitan SMOTE u oversampling antes de entrenar.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>3. WRB missing top20</h3>
+        <div id="fig3" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> algunos sensores no registraron datos en ciertas profundidades. Esta figura muestra cu&aacute;les tienen m&aacute;s huecos. Las variables con muchos datos faltantes se descartan o se estiman (imputan) antes de entrenar el modelo, para no introducir errores artificiales.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>4. Missing by depth signal</h3>
+        <div id="fig4" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> los sensores a mayor profundidad (70&ndash;90&nbsp;cm) tienden a tener m&aacute;s datos faltantes que los superficiales. Esto tiene sentido f&iacute;sico: instalar y mantener sondas profundas es m&aacute;s complejo. <strong>T&eacute;cnicamente:</strong> define qu&eacute; capas se pueden usar como predictores fiables y cu&aacute;les deben excluirse o tratarse con cuidado.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>5. VWC profile top classes</h3>
+        <div id="fig5" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> cada tipo de suelo retiene el agua de forma diferente seg&uacute;n la profundidad. Este gr&aacute;fico muestra ese perfil medio de humedad. Si las l&iacute;neas de diferentes tipos de suelo son distintas, el modelo puede aprender a distinguirlos solo con las lecturas del sensor. <strong>Las separaciones verticales son la se&ntilde;al f&iacute;sica principal</strong> que explota el clasificador.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>6. TEMP profile top classes</h3>
+        <div id="fig6" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> igual que con la humedad, cada suelo tiene su propio perfil de temperatura en profundidad. Un suelo arcilloso se calienta y enf&iacute;a de forma diferente a uno arenoso. <strong>T&eacute;cnicamente:</strong> el gradiente t&eacute;rmico vertical aporta informaci&oacute;n complementaria a la h&iacute;drica, mejorando la separabilidad entre clases similares.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>7. Predictor correlation</h3>
+        <div id="fig7" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> si dos variables siempre suben y bajan juntas (rojo intenso), b&aacute;sicamente miden lo mismo. Este mapa de calor revela esas redundancias. <strong>T&eacute;cnicamente:</strong> los bloques rojos en VWC entre profundidades vecinas (10&ndash;30&nbsp;cm) confirman alta colinealidad; podr&iacute;an reducirse con PCA sin perder capacidad predictiva. El bloque azul VWC&thinsp;vs&thinsp;temperatura indica relaci&oacute;n inversa esperada por f&iacute;sica del suelo.</p>
+        <div class="abbr-note">
+          <p><strong>Qu&eacute; te dice:</strong></p>
+          <p>Rojo: dos variables suben y bajan juntas (correlaci&oacute;n positiva alta).</p>
+          <p>Azul: cuando una sube la otra baja (correlaci&oacute;n negativa).</p>
+          <p>Cerca de blanco/crema: relaci&oacute;n d&eacute;bil o casi nula.</p>
+          <p><strong>Para qu&eacute; es &uacute;til en tu proyecto:</strong></p>
+          <p>Detectar variables redundantes: si varias van pegadas (muy rojas entre s&iacute;), aportan informaci&oacute;n parecida.</p>
+          <p>Entender el patr&oacute;n f&iacute;sico: por ejemplo, relaciones esperadas entre humedad y temperatura.</p>
+          <p>Mejorar modelos: decidir si conviene reducir variables, agruparlas o usar t&eacute;cnicas como PCA.</p>
+          <p>Evitar sobreajuste y ruido: menos duplicidad de se&ntilde;ales suele dar modelos m&aacute;s estables.</p>
+        </div>
+      </article>
+
+      <article class="chart-card">
+        <h3>7A. WRB humidity heatmap</h3>
+        <div id="fig7a" class="chart figure-chart heatmap-static"></div>
+        <p class="scale-note">Escala: Bajo (rojo) - Alto (azul)</p>
+        <div class="abbr-note">
+          <p><strong>Cond elec 10 cm</strong> = Conductividad el&eacute;ctrica a 10 cm (salinidad)</p>
+          <p><strong>Hum 10/50 cm</strong> = Humedad del suelo (media) a 10/50 cm</p>
+          <p><strong>Var hum 10 cm</strong> = Variabilidad de humedad (rango) a 10 cm</p>
+          <p><strong>Temp 10 cm</strong> = Temperatura del suelo a 10 cm</p>
+          <p><strong>Vel secado 10 cm</strong> = Velocidad de secado estimada a 10 cm</p>
+        </div>
+        <p class="fig-comment"><strong>Interpretaci&oacute;n:</strong> mapa de humedad relativa WRB con sem&aacute;ntica de Memoria. M&iacute;nimo en rojo, m&aacute;ximo en azul; azul indica mayor se&ntilde;al relativa para esa clase WRB.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>7B. WRB aridity heatmap</h3>
+        <div id="fig7b" class="chart figure-chart heatmap-static"></div>
+        <p class="scale-note">Escala: Menos &aacute;rido (verde) - M&aacute;s &aacute;rido (rojo)</p>
+        <div class="abbr-note">
+          <p><strong>Cond elec 10 cm</strong> = Conductividad el&eacute;ctrica a 10 cm (salinidad)</p>
+          <p><strong>Hum 10/50 cm</strong> = Humedad del suelo (media) a 10/50 cm</p>
+          <p><strong>Var hum 10 cm</strong> = Variabilidad de humedad (rango) a 10 cm</p>
+          <p><strong>Temp 10 cm</strong> = Temperatura del suelo a 10 cm</p>
+          <p><strong>Vel secado 10 cm</strong> = Velocidad de secado estimada a 10 cm</p>
+        </div>
+        <p class="fig-comment"><strong>Interpretaci&oacute;n:</strong> mapa visual de aridez WRB con sem&aacute;ntica de Memoria. M&iacute;nimo en verde, m&aacute;ximo en rojo; rojo indica condiciones relativamente m&aacute;s &aacute;ridas.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>8. WRB PCA top classes</h3>
+        <div id="fig8" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> el PCA comprime todas las variables del sensor en dos n&uacute;meros para poder dibujarlas. Cada punto es un bloque de medici&oacute;n; el color indica el tipo de suelo. Los grupos separados son f&aacute;ciles de clasificar; los solapados son los casos dif&iacute;ciles. <strong>T&eacute;cnicamente:</strong> los m&uacute;ltiples clusters de Cambisols corresponden a distintas profundidades de sensor (10&ndash;90&nbsp;cm), lo que explica por qu&eacute; el modelo LOSO generaliza bien a pesar del desbalance extremo.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>9. USDA targets histogram</h3>
+        <div id="fig9" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> muestra cu&aacute;nta arcilla, arena y limo hay en las muestras de suelo analizadas. Si la mayor&iacute;a de muestras tienen, por ejemplo, poca arcilla, el modelo aprender&aacute; peor a predecir suelos muy arcillosos. <strong>T&eacute;cnicamente:</strong> permite detectar sesgo en la distribuci&oacute;n de los objetivos de regresi&oacute;n USDA y decidir si aplicar transformaciones o estratificaci&oacute;n en el split.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>10. USDA texture scatter</h3>
+        <div id="fig10" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> cada punto es una muestra de suelo; su posici&oacute;n en el gr&aacute;fico depende de cu&aacute;nta arcilla y arena tiene. Las zonas m&aacute;s densas (m&aacute;s puntos juntos) son las texturas m&aacute;s comunes en los campos estudiados. <strong>T&eacute;cnicamente:</strong> los agrupamientos definen qu&eacute; regiones del tri&aacute;ngulo USDA tienen mayor soporte estad&iacute;stico y, por tanto, predicciones m&aacute;s fiables.</p>
+      </article>
+
+      <article class="chart-card full">
+        <h3>11. Unified label coverage</h3>
+        <div id="fig11" class="chart figure-chart"></div>
+        <p class="fig-comment"><strong>En pocas palabras:</strong> no todos los datos del sensor tienen una etiqueta de tipo de suelo asociada. Esta figura muestra cu&aacute;ntos bloques s&iacute; la tienen (datos &uacute;tiles para entrenar) frente a los que no. <strong>T&eacute;cnicamente:</strong> el ratio de cobertura define el techo real del aprendizaje supervisado disponible; los bloques sin etiqueta son candidatos a clasificaci&oacute;n autom&aacute;tica usando el modelo ya entrenado.</p>
+      </article>
+    </section>
+  </main>
+
+  <script src="figuras_data.js"></script>
+  <script src="figuras.js"></script>
+</body>
+</html>
+

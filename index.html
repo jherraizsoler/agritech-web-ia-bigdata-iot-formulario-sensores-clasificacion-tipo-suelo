@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clasificación de tipos de suelo · Proyecto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-logos">
+        <img src="logos/logo_Proyecto.png" alt="Proyecto" class="logo-Proyecto" />
+        <span class="divider"></span>
+        <img src="logos/logo_proyecto.svg" alt="equipo investigador" />
+      </div>
+    </div>
+    <nav class="page-nav">
+      <a class="nav-link is-active" href="index.html">Inicio</a>
+      <a class="nav-link" href="datos.html">Datos y Pipeline</a>
+      <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
+      <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
+      <a class="nav-link" href="testeo.html">Testeo</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+
+    <section class="hero">
+      <p class="kicker">Investigación IA · equipo investigador</p>
+      <h1>Clasificación de suelo con sensores sensor multinivel (Proyecto)</h1>
+      <p class="lead">¿Pueden los datos de humedad, temperatura y conductividad del suelo identificar el tipo de suelo sin análisis de laboratorio?</p>
+      <div class="chip-row">
+        <span class="chip">Jorge Herraiz Soler</span>
+        <span class="chip">Ralph Berrio Quispe</span>
+        <span class="chip">Ignacio Buey Ruiz</span>
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h3>¿Por qué?</h3>
+        <p>Identificar el suelo por satélite o experiencia empírica es impreciso. Un estudio científico es caro. <strong>¿Pueden los datos del sensor sustituirlo?</strong></p>
+      </article>
+      <article class="card">
+        <h3>¿Para qué?</h3>
+        <p>Optimizar el riego, reducir costes y mejorar la rentabilidad del cultivo a partir de datos que el agricultor ya tiene instalados.</p>
+      </article>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h3>USDA · 12 clases de textura</h3>
+        <p>% arena + arcilla + limo → triángulo textural. Fichero: <code>sensor multinivel_usda_regression_ready.csv</code></p>
+      </article>
+      <article class="card">
+        <h3>WRB · clasificación internacional</h3>
+        <p>Tipo de suelo global (Cambisols, Luvisols…). Fichero: <code>sensor multinivel_wrb_classify_ready.csv</code></p>
+      </article>
+    </section>
+
+    <section class="content-block">
+      <h2>Hipótesis</h2>
+      <p class="lead" style="margin-bottom:16px;">
+        <em>«Es posible identificar el tipo de suelo a partir de los datos del sensor sensor multinivel.»</em>
+      </p>
+
+      <div class="grid two" style="margin-top:12px;">
+        <article class="card">
+          <h3>Técnicas aplicadas</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li><strong>K-Means</strong> — clustering no supervisado de lecturas</li>
+            <li><strong>PCA</strong> — reducción dimensional (VWC, temp, EC)</li>
+            <li><strong>Pearson / Spearman</strong> — correlaciones sensor↔clase</li>
+            <li><strong>Kruskal-Wallis</strong> — diferencias sig. por profundidad</li>
+            <li><strong>Regresión Logística</strong> — clasificación WRB (LOSO)</li>
+            <li><strong>Random Forest Classifier</strong> — clasificación WRB (LOSO) + calibración isotónica</li>
+            <li><strong>RF Regressor + Ridge</strong> — regresión USDA multioutput → triángulo textural</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Hallazgos clave</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>📦 21 parquet y 305,842 bloques sensor multinivel procesados</li>
+            <li>⚠️ <strong>Cambisols domina 92.6%</strong> en WRB etiquetado</li>
+            <li>✅ WRB LOSO: LightGBM F1-macro <strong>0.983</strong> · Balanced Acc <strong>0.972</strong></li>
+            <li>✅ WRB Split+SMOTE: RF F1-macro <strong>0.982</strong> · ROC AUC <strong>1.000</strong></li>
+            <li>📉 USDA no generaliza entre sensores distintos (LOSO)</li>
+            <li>🔬 Kruskal-Wallis confirma diferencias significativas en VWC por capa y clase</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="grid three">
+      <article class="card">
+        <h3>Datos y Pipeline</h3>
+        <p>Fuentes, integración temporal y datasets listos para modelado (WRB/USDA/predicción).</p>
+        <a class="action-link" href="datos.html">Ver datos</a>
+      </article>
+      <article class="card">
+        <h3>Dashboard interactivo</h3>
+        <p>Triángulo USDA, perfiles por profundidad, filtros dinámicos y exportación CSV.</p>
+        <a class="action-link" href="dashboard.html">Abrir dashboard</a>
+      </article>
+      <article class="card">
+        <h3>Figuras técnicas</h3>
+        <p>11 figuras diagnósticas: distribución WRB, missingness, PCA, correlaciones y textura USDA.</p>
+        <a class="action-link" href="figuras.html">Ver figuras</a>
+      </article>
+    </section>
+
+    <section class="content-block">
+      <p class="kicker">Resultados</p>
+      <h2>Resultados WRB y Resultados USDA</h2>
+      <div class="grid two" style="margin-top:12px;">
+        <article class="card">
+          <h3>Resultados WRB</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>LOSO: LightGBM F1-macro <strong>0.983</strong> y balanced accuracy <strong>0.972</strong>.</li>
+            <li>Split 66/34 + SMOTE 500%: RF F1-macro <strong>0.982</strong> y ROC AUC <strong>1.000</strong>.</li>
+            <li><strong>WRB funciona bien</strong> y mantiene consistencia en validación exigente.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Resultados USDA</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>KFold: rendimiento aceptable en escenario fácil (datos del mismo sensor).</li>
+            <li>LOSO: caída severa al generalizar a sensor no visto.</li>
+            <li><strong>USDA aún no está listo</strong> para despliegue robusto entre sensores distintos.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
+
