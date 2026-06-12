@@ -74,7 +74,7 @@ p { margin: 0; }
   display: block;
 }
 
-.brand-logos img.logo-Proyecto {
+.brand-logos img.logo-proyecto {
   background: #fff;
   padding: 5px 10px;
   border: 1px solid var(--line-strong);
