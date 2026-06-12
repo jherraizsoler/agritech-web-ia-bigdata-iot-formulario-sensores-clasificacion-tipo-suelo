@@ -50,7 +50,7 @@ p { margin: 0; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 22px;
+  padding: 18px 24px;
   border-bottom: 1px solid var(--line-strong);
   background: #ffffff;
   box-shadow: var(--shadow-soft);
@@ -74,18 +74,26 @@ p { margin: 0; }
   display: block;
 }
 
+.brand-logos img.logo-spherag,
+.brand-logos img.logo-campus {
+  max-height: 46px;
+}
+
 .brand-logos img.logo-proyecto {
-  background: #fff;
-  padding: 5px 10px;
-  border: 1px solid var(--line-strong);
-  border-radius: 4px;
-  height: 44px;
+  background: transparent;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  height: 56px;
+  max-width: min(56vw, 620px);
+  width: auto;
   max-height: none;
+  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.28));
 }
 
 .brand-logos .divider {
   width: 1px;
-  height: 40px;
+  height: 44px;
   background: var(--line-strong);
 }
 
@@ -228,6 +236,24 @@ p { margin: 0; }
   font-size: 0.84rem;
   font-weight: 700;
   color: var(--ink);
+  text-decoration: none;
+}
+
+.chip-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chip-linkedin::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230A66C2' d='M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.62 0 4.29 2.38 4.29 5.48v6.26zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.78C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.78 24h20.44c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z'/%3E%3C/svg%3E");
 }
 
 .steps {
@@ -507,10 +533,21 @@ p { margin: 0; }
 @media (max-width: 760px) {
   .site-header {
     height: auto;
-    padding: 10px 14px;
+    padding: 12px 14px;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+  }
+  .brand-logos {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .brand-logos .divider {
+    display: none;
+  }
+  .brand-logos img.logo-proyecto {
+    height: 50px;
+    max-width: 100%;
   }
   .grid.two,
   .timeline { grid-template-columns: 1fr; }

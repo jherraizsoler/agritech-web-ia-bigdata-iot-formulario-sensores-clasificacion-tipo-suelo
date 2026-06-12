@@ -34,19 +34,20 @@
 
     /* ── Header ── */
     #hdr {
-      position: fixed; top: 0; left: 0; right: 0; height: 50px;
+      position: fixed; top: 0; left: 0; right: 0; height: 58px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 20px;
       background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--line); z-index: 100;
     }
     .hdr-logos { display: flex; align-items: center; gap: 14px; }
-    .hdr-logos img { height: 30px; }
+    .hdr-logos img { height: 34px; }
+    .hdr-logos img.logo-proyecto { height: 40px; }
     .hdr-logos .sep { width: 1px; height: 26px; background: var(--line); }
     #counter { font-size: .8rem; font-weight: 700; color: var(--muted); letter-spacing: .08em; }
 
     /* ── Deck ── */
-    #deck { position: fixed; top: 50px; bottom: 0; left: 0; right: 0; overflow: hidden; }
+    #deck { position: fixed; top: 58px; bottom: 0; left: 0; right: 0; overflow: hidden; }
 
     .slide {
       position: absolute; inset: 0;
@@ -221,9 +222,11 @@
 
 <header id="hdr">
   <div class="hdr-logos">
-    <img src="logos/logo_proyecto.svg" alt="Proyecto" />
-    <div class="sep"></div>
-    <img src="logos/logo_proyecto.svg" alt="equipo investigador" />
+    <img src="logos/logo_proyecto.svg" alt="Proyecto de investigacion" class="logo-proyecto" />
+        <div class="sep"></div>
+        <img src="logos/logo_spherag.png" alt="Spherag" class="logo-spherag" />
+        <div class="sep"></div>
+        <img src="logos/logo_campus.png" alt="Campus Digital" class="logo-campus" />
   </div>
   <span id="counter">1 / 11</span>
 </header>
@@ -581,5 +584,10 @@ function renderDec(){
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
