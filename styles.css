@@ -575,6 +575,7 @@ p { margin: 0; }
 
   .brand {
     width: 100%;
+    justify-content: center;
   }
 
   .brand-logos {
