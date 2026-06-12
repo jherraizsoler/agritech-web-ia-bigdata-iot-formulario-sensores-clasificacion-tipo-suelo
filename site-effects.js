@@ -5,16 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const footer = document.createElement('footer');
     footer.className = 'site-footer';
     footer.innerHTML = `
-      <svg class="footer-wave" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#0369a1;stop-opacity:0.15" />
-            <stop offset="100%" style="stop-color:#0369a1;stop-opacity:0.05" />
-          </linearGradient>
-        </defs>
-        <path class="wave wave1" d="M0,60 Q300,20 600,60 T1200,60 L1200,120 L0,120 Z" fill="url(#waveGradient)"></path>
-        <path class="wave wave2" d="M0,65 Q300,30 600,65 T1200,65 L1200,120 L0,120 Z" fill="#0369a1" style="opacity:0.08;"></path>
-      </svg>
       <div class="footer-inner">
         <div class="footer-grid">
           <section class="footer-brand">
