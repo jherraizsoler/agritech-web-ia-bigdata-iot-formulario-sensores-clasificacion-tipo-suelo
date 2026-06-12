@@ -93,7 +93,7 @@ function initDashboard() {
     Disponibles/mostrados 60-100cm: ${(provenance.depth_60_100_available ?? 0).toLocaleString()}/${(provenance.depth_60_100_used ?? 0).toLocaleString()}.
   `;
 
-  [...wrb.top_classes, 'Unknown'].forEach((name) => {
+  wrb.top_classes.forEach((name) => {
     const opt = document.createElement('option');
     opt.value = name;
     opt.textContent = name;

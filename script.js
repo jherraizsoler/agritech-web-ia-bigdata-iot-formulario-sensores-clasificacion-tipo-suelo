@@ -58,7 +58,7 @@ function initLiveCharts() {
   const usda = data.usda;
   const profiles = data.profiles;
 
-  const classOptions = [...wrb.top_classes, 'Unknown'];
+  const classOptions = wrb.top_classes;
   classOptions.forEach((name) => {
     const opt = document.createElement('option');
     opt.value = name;
